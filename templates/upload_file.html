@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wafer Fault Detection</title>
+
+    <link rel="stylesheet" href="../static/css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>Wafer Fault Detection</h1>
+
+        <p>
+            Upload your wafer sensor CSV file and let the AI predict whether the wafer is faulty or not.
+        </p>
+
+        <form action="/predict" method="POST" enctype="multipart/form-data">
+
+            <label class="upload-box">
+
+                <input type="file"
+                       name="file"
+                       accept=".csv"
+                       required>
+
+                <div class="upload-content">
+
+                    <div class="icon">
+                        📂
+                    </div>
+
+                    <h3>Drag & Drop CSV File</h3>
+
+                    <span>or Click to Browse</span>
+
+                </div>
+
+            </label>
+
+            <button type="submit">
+                Upload & Predict
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

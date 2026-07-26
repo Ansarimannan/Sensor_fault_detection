@@ -1,60 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wafer Fault Detection</title>
 
-    <link rel="stylesheet" href="../static/css/style.css">
+    <title>Sensor Fault Detection</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-<div class="container">
+    <div class="background"></div>
 
-    <div class="card">
+    <div class="container">
 
-        <h1>Wafer Fault Detection</h1>
+        <!-- Left Side -->
+        <div class="left">
 
-        <p>
-            Upload your wafer sensor CSV file and let the AI predict whether the wafer is faulty or not.
-        </p>
+            <div class="logo">
 
-        <form action="/predict" method="POST" enctype="multipart/form-data">
+                <i class="bi bi-cpu-fill"></i>
 
-            <label class="upload-box">
+                <h1>Sensor Fault Detection</h1>
 
-                <input type="file"
-                       name="file"
-                       accept=".csv"
-                       required>
+            </div>
 
-                <div class="upload-content">
+            <h2>
+                AI Powered Wafer Fault Prediction
+            </h2>
 
-                    <div class="icon">
-                        📂
-                    </div>
+            <p>
 
-                    <h3>Drag & Drop CSV File</h3>
+                Upload your wafer sensor CSV file and let our Machine Learning
+                model detect faulty wafers instantly.
 
-                    <span>or Click to Browse</span>
+            </p>
+
+            <div class="features">
+
+                <div class="feature">
+
+                    <i class="bi bi-lightning-charge-fill"></i>
+
+                    Fast Prediction
 
                 </div>
 
-            </label>
+                <div class="feature">
 
-            <button type="submit">
-                Upload & Predict
-            </button>
+                    <i class="bi bi-shield-check"></i>
 
-        </form>
+                    Reliable ML Model
+
+                </div>
+
+                <div class="feature">
+
+                    <i class="bi bi-file-earmark-spreadsheet"></i>
+
+                    CSV File Support
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Side -->
+
+        <div class="card">
+
+            <h2>Upload Dataset</h2>
+
+            <p>Select your wafer CSV file.</p>
+
+            <form action="/predict"
+                method="POST"
+                enctype="multipart/form-data">
+
+                <label class="drop-area">
+
+                    <input
+                        type="file"
+                        id="fileInput"
+                        name="file"
+                        accept=".csv"
+                        required>
+
+                    <div class="upload-content">
+
+                        <i class="bi bi-cloud-arrow-up-fill"></i>
+
+                        <h3>Drag & Drop</h3>
+
+                        <span>or Click to Browse</span>
+
+                        <p id="fileName">
+
+                            No file selected
+
+                        </p>
+
+                    </div>
+
+                </label>
+
+                <button type="submit" class="btn" id="uploadBtn">
+                    ✨ Upload & Predict
+                </button>
+
+                <div id="loadingText" style="display:none;">
+                    <p>⏳ Predicting... Please wait</p>
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
 
-</div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    
 
 </body>
+
+
 </html>

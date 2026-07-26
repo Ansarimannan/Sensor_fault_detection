@@ -5,7 +5,7 @@ MONGO_DATABASE_NAME="pwskills"
 MONGO_COLLECTION_NAME="waferfault"
 
 
-TARGET_COLUMN=""
+TARGET_COLUMN="quality"
 MONGO_DB_URL="mongodb+srv://Mannan:12345@cluster0.t6vveqt.mongodb.net/?appName=Cluster0"
 
 

@@ -1,3 +1,9 @@
+/* ===========================
+   Google Font
+=========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 *{
     margin:0;
     padding:0;
@@ -5,69 +11,218 @@
     font-family:'Poppins',sans-serif;
 }
 
-body{
+/* ===========================
+        Body
+=========================== */
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+body{
 
     min-height:100vh;
 
-    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-}
-
-.container{
-
-    width:100%;
     display:flex;
     justify-content:center;
     align-items:center;
-}
 
-.card{
+    background:#0f172a;
 
-    width:450px;
-
-    padding:40px;
-
-    background:rgba(255,255,255,.1);
-
-    border-radius:20px;
-
-    backdrop-filter:blur(20px);
-
-    border:1px solid rgba(255,255,255,.2);
-
-    box-shadow:0 20px 40px rgba(0,0,0,.35);
-
-    text-align:center;
+    overflow:hidden;
 
     color:white;
 }
 
-.card h1{
+/* ===========================
+     Animated Background
+=========================== */
 
-    font-size:32px;
-    margin-bottom:10px;
+.background{
+
+    position:fixed;
+
+    width:100%;
+    height:100%;
+
+    background:
+    radial-gradient(circle at top left,#2563eb 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+    linear-gradient(135deg,#0f172a,#111827,#1e293b);
+
+    z-index:-1;
+}
+
+/* ===========================
+        Main Container
+=========================== */
+
+.container{
+
+    width:90%;
+    max-width:1200px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:60px;
+}
+
+/* ===========================
+        Left Side
+=========================== */
+
+.left{
+
+    flex:1;
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin-bottom:35px;
+}
+
+.logo i{
+
+    font-size:55px;
+
+    color:#38bdf8;
+}
+
+.logo h1{
+
+    font-size:40px;
+
+    font-weight:700;
+}
+
+.left h2{
+
+    font-size:34px;
+
+    line-height:1.4;
+
+    margin-bottom:20px;
+}
+
+.left p{
+
+    font-size:17px;
+
+    color:#cbd5e1;
+
+    line-height:1.8;
+
+    margin-bottom:40px;
+}
+
+/* ===========================
+       Features
+=========================== */
+
+.features{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+}
+
+.feature{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    font-size:18px;
+
+    color:#e2e8f0;
+}
+
+.feature i{
+
+    width:45px;
+    height:45px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.08);
+
+    color:#38bdf8;
+
+    font-size:22px;
+}
+
+/* ===========================
+        Upload Card
+=========================== */
+
+.card{
+
+    flex:1;
+
+    max-width:430px;
+
+    padding:45px;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:25px;
+
+    box-shadow:
+
+    0 10px 40px rgba(0,0,0,.4);
+}
+
+.card h2{
+
+    text-align:center;
+
+    font-size:30px;
+
+    margin-bottom:12px;
 }
 
 .card p{
 
-    font-size:15px;
-    opacity:.8;
+    text-align:center;
+
+    color:#cbd5e1;
 
     margin-bottom:30px;
 }
 
-.upload-box{
+/* ===========================
+        Upload Area
+=========================== */
+
+.drop-area{
 
     width:100%;
 
-    height:220px;
+    height:330px;
 
-    border:2px dashed rgba(255,255,255,.5);
+    border:2px dashed rgba(255,255,255,.25);
 
-    border-radius:15px;
+    border-radius:20px;
 
     display:flex;
 
@@ -77,75 +232,371 @@ body{
 
     cursor:pointer;
 
-    transition:.3s;
+    transition:.35s;
+
+    position:relative;
+
+    overflow:hidden;
 
     margin-bottom:30px;
+
+    background:rgba(255,255,255,.04);
 }
 
-.upload-box:hover{
+.drop-area:hover{
 
-    border-color:#00d4ff;
+    border-color:#38bdf8;
 
-    background:rgba(255,255,255,.05);
+    background:rgba(56,189,248,.08);
+
+    transform:translateY(-4px);
+
+    box-shadow:0 10px 30px rgba(56,189,248,.15);
 }
 
-.upload-box input{
+/* Hide File Input */
 
-    display:none;
-}
+.drop-area input{
 
-.upload-content{
-
-    color:white;
-}
-
-.icon{
-
-    font-size:60px;
-
-    margin-bottom:15px;
-}
-
-.upload-content h3{
-
-    margin-bottom:8px;
-
-    font-weight:500;
-}
-
-.upload-content span{
-
-    color:#ddd;
-
-    font-size:14px;
-}
-
-button{
+    position:absolute;
 
     width:100%;
 
-    padding:15px;
+    height:100%;
 
-    border:none;
+    opacity:0;
 
-    border-radius:12px;
+    cursor:pointer;
+}
 
-    background:#00d4ff;
+/* Upload Content */
+
+.upload-content{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    
+    gap:15px;
+    height:100%;
+}
+.upload-content i{
+
+    font-size:65px;
+
+    color:#38bdf8;
+
+    margin-bottom:18px;
+
+    display:block;
+}
+
+.upload-content h3{
 
     color:white;
 
     font-size:18px;
 
+    font-weight:500;
+
+    text-align:center;
+
+    word-break:break-word;
+}
+
+.upload-content span{
+
+    color:#94a3b8;
+
+    font-size:15px;
+}
+
+/* File Name */
+
+#fileName{
+
+    margin-top:18px;
+
+    color:#38bdf8;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    text-align:center;
+
+    max-width:100%;
+
+    overflow:hidden;
+
+    white-space:nowrap;
+
+    text-overflow:ellipsis;
+}
+
+/* ===========================
+        Button
+=========================== */
+
+button{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:15px;
+
     cursor:pointer;
 
-    transition:.3s;
+    font-size:18px;
+
+    font-weight:600;
+
+    color:white;
+
+    background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+    transition:.35s;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    box-shadow:0 12px 25px rgba(37,99,235,.30);
+    letter-spacing:.5px;
 }
 
 button:hover{
 
-    transform:translateY(-3px);
+    transform:translateY(-5px);
 
-    background:#00b5d6;
+    box-shadow:0 18px 35px rgba(37,99,235,.45);
 
-    box-shadow:0 10px 25px rgba(0,212,255,.4);
+    background:linear-gradient(135deg,#1d4ed8,#2563eb);
+}
+
+button:active{
+
+    transform:scale(.98);
+}
+
+button i{
+
+    font-size:20px;
+}
+
+/* ===========================
+        Floating Card Effect
+=========================== */
+
+.card{
+    box-shadow:
+
+    0 0 25px rgba(59,130,246,.20),
+
+    0 0 80px rgba(124,58,237,.15);
+
+    animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+
+    0%{
+
+        transform:translateY(0px);
+    }
+
+    50%{
+
+        transform:translateY(-8px);
+    }
+
+    100%{
+
+        transform:translateY(0px);
+    }
+
+}
+
+/* ===========================
+        Fade Animation
+=========================== */
+
+.left{
+
+    animation:leftFade 1s ease;
+}
+
+.card{
+
+    animation:rightFade .9s ease;
+}
+
+@keyframes leftFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(-40px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+    }
+
+}
+
+@keyframes rightFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(40px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+    }
+
+}
+
+/* ===========================
+        Responsive
+=========================== */
+
+@media(max-width:950px){
+
+.container{
+
+    flex-direction:column;
+
+    padding:40px 20px;
+}
+
+.left{
+
+    text-align:center;
+}
+
+.logo{
+
+    justify-content:center;
+}
+
+.features{
+
+    align-items:center;
+}
+
+.card{
+
+    width:100%;
+
+    max-width:500px;
+}
+
+}
+
+@media(max-width:550px){
+
+.logo h1{
+
+    font-size:28px;
+}
+
+.left h2{
+
+    font-size:26px;
+}
+
+.card{
+
+    padding:30px;
+}
+
+.drop-area{
+
+    height:220px;
+}
+
+.upload-content i{
+
+    font-size:52px;
+}
+
+.upload-content h3{
+
+    font-size:20px;
+}
+
+button{
+
+    height:52px;
+
+    font-size:16px;
+}
+
+}
+
+/* ===========================
+        Selected File
+=========================== */
+
+#fileName i{
+
+    margin-right:8px;
+
+    color:#22c55e;
+}
+
+/* ===========================
+      Disabled Button
+=========================== */
+
+button:disabled{
+
+    opacity:.75;
+
+    cursor:not-allowed;
+}
+
+/* ===========================
+      Smooth Transition
+=========================== */
+
+button,
+.drop-area,
+.feature,
+.card{
+
+    transition:all .35s ease;
+}
+
+#loadingText{
+    text-align:center;
+    margin-top:15px;
+    color:#4aa3ff;
+    font-size:15px;
+    font-weight:600;
+}
+
+.btn:disabled{
+    opacity:.7;
+    cursor:not-allowed;
 }

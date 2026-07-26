@@ -10,6 +10,7 @@ from src.logger import logging
 from src.utils.main_utils import MainUtils
 from dataclasses import dataclass
 
+print(pd.DataFrame)
 
 @dataclass
 class DataIngestionConfig:

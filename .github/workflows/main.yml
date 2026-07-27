@@ -1,12 +1,11 @@
 name: workflow
 
-on :
-  push :
+on:
+  push:
     branches:
-      -main
+      - main
     paths-ignore:
-      - 'README.md'
-
+      - "README.md"
 
 permissions:
   id-token: write
@@ -14,83 +13,89 @@ permissions:
 
 jobs:
   integration:
-    name: Continous Integration
-    runs-on : ubantu-latest
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
-        uses : actions/Checkout@v3
+        uses: actions/checkout@v3
 
       - name: Lint Code
-        run : echo "Linting repository"
+        run: echo "Linting repository"
 
-      - name : Run unit tests
-        run : echo "Running unit tests" 
+      - name: Run Unit Tests
+        run: echo "Running unit tests"
 
-  build-and-push-ecr-image :
-    name : Continous Delivery
+  build-and-push-ecr-image:
+    name: Continuous Delivery
     needs: integration
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Install Utilities
-        run : 
+        run: |
           sudo apt-get update
           sudo apt-get install -y jq unzip
 
-      - name : Configure AWS Credentials
-        uses : aws-actions/configure-aws-credentials@v1
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          aws-secret--access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-          aws-region: ${{secrets.AWS_DEFAULT_REGION}}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
       - name: Login to Amazon ECR
-        id : login-ecr
+        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build,tag,and push image to Amazon ECR
-        id : build-image
+      - name: Build, Tag and Push Image to Amazon ECR
+        id: build-image
         env:
           IMAGE_TAG: latest
-        run: 
-          #Build a docker container and
-          # push it to ECR so that i can
-          #be deployed to ECS
-          docker build -t ${{secrets.AWS_ECR_REPO_URI}}:$IMAGE_TAG .
-          docker push ${{ secrets.AWS_ECR_REPO_URI}}:$IMAGE_TAG
-    
-  Continous-Deployment:
+        run: |
+          docker build -t ${{ secrets.AWS_ECR_REPO_URI }}:$IMAGE_TAG .
+          docker push ${{ secrets.AWS_ECR_REPO_URI }}:$IMAGE_TAG
+
+  Continuous-Deployment:
+    name: Continuous Deployment
     needs: build-and-push-ecr-image
     runs-on: self-hosted
-    steps: 
-      - name : Checkout
-        uses : actions/checkout@v3
 
-      - name : Configure AWS Credentials
-        uses : aws-actions/configure-aws-credentials@v1
-        with : 
-          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          aws-secret--access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-          aws-region: ${{secrets.AWS_DEFAULT_REGION}}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name : Login to Amazon ECR
-        id : login-ecr
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name : Pull latest images
-        run: 
-          docker pull ${{secrets.AWS_ECR_REPO_URI}}:latest
+      - name: Pull Latest Image
+        run: |
+          docker pull ${{ secrets.AWS_ECR_REPO_URI }}:latest
 
-      - name : Run Docker Image to serve users
-        run:
-          docker run -d -p 8080:8080 --name=sensor -e 'MONGO_DB_URL=${{secrets.MONGO_DB_URL}}' -e 'AWS_ACESS'
-          
-      - name : Clean previous images and containers
-        run :
-          docker system prune -f
+      - name: Stop and Remove Old Container
+        run: |
+          docker stop sensor || true
+          docker rm sensor || true
 
+      - name: Run Docker Container
+        run: |
+          docker run -d \
+            --name sensor \
+            -p 8080:5000 \
+            -e MONGO_DB_URL='${{ secrets.MONGO_DB_URL }}' \
+            ${{ secrets.AWS_ECR_REPO_URI }}:latest
 
-
-
+      - name: Clean Docker Images
+        run: |
+          docker system prune -af

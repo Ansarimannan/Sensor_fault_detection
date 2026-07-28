@@ -58,23 +58,23 @@ Every push to GitHub automatically:
 
 No manual deployment required.
 
+![CI/CD Pipeline](images/github-actions.png)
+
 ---
 
 ## 📷 Screenshots
 
 ### Home Page
 
-(Add Screenshot Here)
+![Home Page](images/home.png)
 
 ### Prediction Result
 
-(Add Screenshot Here)
+![Prediction Result](images/prediction.png)
 
-### GitHub Actions
+### GitHub Actions CI/CD Pipeline
 
-(Add Screenshot Here)
-
----
+![GitHub Actions](images/github-actions.png)
 
 ## 📂 Project Structure
 

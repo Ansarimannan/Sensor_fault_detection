@@ -66,11 +66,11 @@ No manual deployment required.
 
 ### Home Page
 
-![Home Page](images/home.png)
+![Home Page](images/Home.png)
 
 ### Prediction Result
 
-![Prediction Result](images/prediction.png)
+![Prediction Result](images/Prediction.png)
 
 ### GitHub Actions CI/CD Pipeline
 
